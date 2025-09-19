@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>قائمة الحضور</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            text-align: center;
+            padding: 30px;
+        }
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 80%;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #1cb85d;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h2>📋 قائمة الحضور</h2>
+    <table>
+        <tr>
+            <th>الاسم</th>
+            <th>الرقم الجامعي</th>
+            <th>الوقت</th>
+        </tr>
+        {% for s in students %}
+        <tr>
+            <td>{{ s.name }}</td>
+            <td>{{ s.id }}</td>
+            <td>{{ s.time }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

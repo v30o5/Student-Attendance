@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>تسجيل الحضور - جامعة المجمعة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1cb85d, #6dd5ed);
+            color: #333;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            background: #fff;
+            border-radius: 10px;
+            width: 400px;
+            margin: auto;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        button {
+            background: #1cb85d;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #17a34a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>✍️ تسجيل الحضور</h2>
+        <form action="/submit" method="post">
+            <input type="text" name="name" placeholder="الاسم" required><br>
+            <input type="text" name="student_id" placeholder="الرقم الجامعي" required><br>
+            <button type="submit">تسجيل ✅</button>
+        </form>
+    </div>
+</body>
+</html>
