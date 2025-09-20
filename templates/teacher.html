@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <title>لوحة تحكم المدرس</title>
     <style>
-        body { font-family: sans-serif; text-align: center; background-color: #f8f9fa; margin-top: 80px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; text-align: center; background-color: #f8f9fa; margin-top: 80px; }
         .container { max-width: 500px; margin: auto; padding: 30px; background-color: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .action-button { display: block; margin: 15px 0; padding: 18px; color: white; text-decoration: none; border: none; border-radius: 5px; font-size: 20px; cursor: pointer; width: 100%; }
-        .blue { background-color: #007bff; }
-        .green { background-color: #28a745; }
-        .red { background-color: #dc3545; }
+        h1 { color: #343a40; margin-bottom: 30px; }
+        .action-button { display: block; box-sizing: border-box; margin: 15px 0; padding: 18px; color: white; text-decoration: none; border: none; border-radius: 5px; font-size: 20px; cursor: pointer; width: 100%; }
+        .blue { background-color: #007bff; } .blue:hover { background-color: #0056b3; }
+        .green { background-color: #28a745; } .green:hover { background-color: #218838; }
+        .red { background-color: #dc3545; } .red:hover { background-color: #c82333; }
     </style>
 </head>
 <body>
@@ -17,8 +18,8 @@
         <h1>لوحة تحكم المدرس 👨‍🏫</h1>
         <a href="/generate_qr" class="action-button blue">إنشاء باركود الحضور</a>
         <a href="/list" class="action-button green">عرض قائمة الحضور</a>
-
-        <form action="/clear" method="post" onsubmit="return confirm('هل أنت متأكد من رغبتك في حذف كل السجلات؟');">
+        
+        <form action="/clear" method="post" onsubmit="return confirm('هل أنت متأكد من رغبتك في حذف كل السجلات؟');" style="margin: 0;">
             <button type="submit" class="action-button red">تصفير قائمة الحضور</button>
         </form>
     </div>
