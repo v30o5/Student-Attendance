@@ -1,66 +1,69 @@
-from flask import Flask, request, send_file
-import openpyxl
 import os
+import redis
+import json
+from flask import Flask, render_template, request, url_for
 from datetime import datetime
+import qrcode
 
 app = Flask(__name__)
-FILE_NAME = "attendance.xlsx"
 
-# This function creates the Excel file with headers if it doesn't exist.
-def init_excel():
-    if not os.path.exists(FILE_NAME):
-        wb = openpyxl.Workbook()
-        ws = wb.active
-        ws.title = "Attendance"
-        ws.append(["Name", "Student ID", "Date", "Time"])
-        wb.save(FILE_NAME)
+# --- الاتصال بقاعدة بيانات Redis ---
+redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379')
+r = redis.from_url(redis_url)
+# ------------------------------------
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    # This part runs when a user submits the form (POST request)
+# --- التأكد من وجود مجلد للصور الثابتة ---
+if not os.path.exists('static'):
+    os.makedirs('static')
+# ------------------------------------
+
+@app.route('/')
+def teacher_dashboard():
+    """هذه هي الصفحة الرئيسية الجديدة، وهي الآن لوحة تحكم المدرس."""
+    return render_template('teacher.html')
+
+@app.route('/generate_qr')
+def generate_qr():
+    """هذه الصفحة تقوم بإنشاء وعرض الباركود."""
+    # إنشاء الرابط الكامل لصفحة التسجيل التي سيشير إليها الباركود.
+    registration_url = url_for('register', _external=True)
+    
+    # إنشاء صورة الباركود وحفظها في مجلد 'static'.
+    qr_img = qrcode.make(registration_url)
+    qr_img.save('static/attendance_qr.png')
+    
+    # عرض الصفحة التي تعرض الباركود.
+    return render_template('qr_code.html')
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    """هذه هي صفحة تسجيل الحضور التي سيراها الطلاب بعد مسح الكود."""
     if request.method == 'POST':
-        name = request.form.get("name")
-        student_id = request.form.get("student_id")
+        # أخذ البيانات من النموذج.
+        name = request.form['name']
+        student_id = request.form['student_id']
+        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-        if name and student_id:
-            # Open the existing Excel file and add the new data
-            wb = openpyxl.load_workbook(FILE_NAME)
-            ws = wb.active
-            ws.append([name, student_id, datetime.now().strftime("%Y-%m-%d"), datetime.now().strftime("%H:%M:%S")])
-            wb.save(FILE_NAME)
-            return "تم تسجيل حضورك بنجاح ✅"
+        # تجهيز البيانات ليتم حفظها.
+        attendee_data = {
+            'name': name,
+            'student_id': student_id,
+            'time': current_time
+        }
+        
+        # حفظ البيانات في قاعدة بيانات Redis.
+        r.lpush('attendees', json.dumps(attendee_data))
+        
+        # إظهار رسالة نجاح.
+        return "<h1>تم تسجيل حضورك بنجاح ✅</h1>"
+        
+    # إذا قام المستخدم بزيارة الصفحة فقط، قم بعرض نموذج التسجيل.
+    return render_template('register.html')
 
-    # This part runs when a user visits the page for the first time (GET request)
-    # It displays the HTML form.
-    return '''
-        <!DOCTYPE html>
-        <html lang="ar" dir="rtl">
-        <head>
-            <meta charset="UTF-8">
-            <title>تسجيل الحضور</title>
-        </head>
-        <body>
-            <h2>تسجيل الحضور</h2>
-            <form method="post">
-                <label>الاسم:</label><br>
-                <input type="text" name="name" required><br><br>
-                <label>الرقم الجامعي:</label><br>
-                <input type="text" name="student_id" required><br><br>
-                <button type="submit">تسجيل</button>
-            </form>
-            <br>
-            <a href="/download">📥 تحميل ملف الحضور</a>
-        </body>
-        </html>
-    '''
-
-@app.route("/download")
-def download():
-    return send_file(FILE_NAME, as_attachment=True)
-
-# Create the Excel file when the application starts
-init_excel()
-
-# This part is for running the app locally on your computer
-if __name__ == "__main__":
-    app.run(debug=True)
+@app.route('/list')
+def attendees_list():
+    """هذه الصفحة تعرض قائمة الحضور (نفس التصميم السابق)."""
+    raw_data = r.lrange('attendees', 0, -1)
+    attendees_data = [json.loads(item) for item in raw_data]
+    # السطر الأخير المضاف لإرسال البيانات إلى واجهة العرض
+    return render_template('list.html', attendees=attendees_data)
