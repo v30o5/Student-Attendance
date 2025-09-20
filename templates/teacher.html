@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher Dashboard</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            text-align: center;
+            background-color: #f8f9fa;
+            margin-top: 80px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #343a40;
+            margin-bottom: 30px;
+        }
+        .action-button {
+            display: block;
+            margin: 15px 0;
+            padding: 18px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 20px;
+            transition: background-color 0.3s;
+        }
+        .action-button:hover {
+            background-color: #0056b3;
+        }
+        .list-button {
+            background-color: #28a745;
+        }
+        .list-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Teacher Dashboard 👨‍🏫</h1>
+        <a href="/generate_qr" class="action-button">Generate & View Attendance QR Code</a>
+        <a href="/list" class="action-button list-button">View Attendance List</a>
+    </div>
+</body>
+</html>
