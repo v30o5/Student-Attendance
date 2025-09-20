@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance QR Code</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; margin-top: 100px; background-color: #f8f9fa; }
+        .container { padding: 30px; background-color: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: inline-block; }
+        h1 { color: #333; }
+        img { margin-top: 20px; border: 5px solid #eee; }
+        a { display: inline-block; margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>امسح الباركود لتسجيل الحضور</h1>
+        <img src="{{ url_for('static', filename='attendance_qr.png') }}" alt="Attendance QR Code">
+        <br>
+        <a href="/">العودة إلى لوحة التحكم</a>
+    </div>
+</body>
+</html>
