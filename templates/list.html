@@ -1,49 +1,78 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>قائمة الحضور</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance List</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            text-align: center;
-            padding: 30px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #f8f9fa;
+            margin-top: 50px;
+        }
+        h1 {
+            color: #333;
         }
         table {
-            margin: auto;
-            border-collapse: collapse;
             width: 80%;
-            background: #fff;
-            border-radius: 10px;
+            max-width: 800px;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: white;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         th, td {
-            padding: 12px;
+            padding: 15px;
+            text-align: right;
             border-bottom: 1px solid #ddd;
         }
-        th {
-            background: #1cb85d;
-            color: #fff;
+        thead th {
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tbody tr:hover {
+            background-color: #e9ecef;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
-    <h2>📋 قائمة الحضور</h2>
+
+    <h1>📋 Attendance List</h1>
+
     <table>
-        <tr>
-            <th>الاسم</th>
-            <th>الرقم الجامعي</th>
-            <th>الوقت</th>
-        </tr>
-        {% for s in students %}
-        <tr>
-            <td>{{ s.name }}</td>
-            <td>{{ s.id }}</td>
-            <td>{{ s.time }}</td>
-        </tr>
-        {% endfor %}
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>University ID</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for attendee in attendees %}
+            <tr>
+                <td>{{ attendee.name }}</td>
+                <td>{{ attendee.student_id }}</td>
+                <td>{{ attendee.time }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
+
+    <a href="/" class="back-link">Return to Dashboard</a>
+
 </body>
 </html>
