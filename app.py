@@ -1,9 +1,10 @@
 import os
 import redis
 import json
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, url_for, redirect
 from datetime import datetime
 import qrcode
+import pytz
 
 app = Flask(__name__)
 
@@ -33,30 +34,30 @@ def register():
     if request.method == 'POST':
         name = request.form['name']
         student_id = request.form['student_id']
-        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        
+        # --- Convert time to Riyadh timezone ---
+        riyadh_tz = pytz.timezone("Asia/Riyadh") 
+        current_time = datetime.now(riyadh_tz).strftime('%Y-%m-%d %H:%M:%S')
 
         attendee_data = {
             'name': name,
             'student_id': student_id,
             'time': current_time
         }
-
-        # --- DEBUG PRINT STATEMENT ---
-        print(f"DEBUG: Received data: {attendee_data}", flush=True)
-        # -----------------------------
-
+        
         r.lpush('attendees', json.dumps(attendee_data))
         return "<h1>Your attendance has been successfully recorded ✅</h1>"
-
+    
     return render_template('register.html')
 
 @app.route('/list')
 def attendees_list():
     raw_data = r.lrange('attendees', 0, -1)
-
-    # --- DEBUG PRINT STATEMENT ---
-    print(f"DEBUG: Data read from Redis: {raw_data}", flush=True)
-    # -----------------------------
-
     attendees_data = [json.loads(item) for item in raw_data]
     return render_template('list.html', attendees=attendees_data)
+
+@app.route('/clear', methods=['POST'])
+def clear_list():
+    """Function to delete all attendees from the database"""
+    r.delete('attendees')
+    return redirect(url_for('teacher_dashboard'))
