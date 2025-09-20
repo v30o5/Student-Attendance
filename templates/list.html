@@ -4,29 +4,35 @@
     <meta charset="UTF-8">
     <title>Attendance List</title>
     <style>
-        :root { --mu-primary: #8A814C; --mu-secondary: #5A5340; --mu-background: #F4F4F4; }
-        body { font-family: sans-serif; align-items: center; flex-direction: column; background-color: var(--mu-background); margin: 0; padding-top: 80px; min-height: 100vh; box-sizing: border-box; }
-        .header { position: fixed; top: 0; left: 0; width: 100%; background-color: #fff; padding: 10px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); z-index: 1000; }
-        .header img { height: 50px; display: block; margin: auto;}
-        h1 { color: var(--mu-secondary); margin-top: 30px; text-align: center; }
-        table { width: 90%; max-width: 900px; margin: 20px auto; border-collapse: collapse; box-shadow: 0 4px 8px rgba(0,0,0,0.1); background-color: white; border-radius: 8px; overflow: hidden; }
-        th, td { padding: 15px; text-align: right; border-bottom: 1px solid #ddd; }
-        thead th { background-color: var(--mu-secondary); color: white; }
+        :root { --mu-olive: #8B804B; --mu-dark-olive: #5A5340; --mu-bg: #EFEFEF; }
+        body { font-family: sans-serif; background-color: var(--mu-bg); margin: 0; }
+        .header { background-color: #fff; padding: 15px 30px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); text-align: center; }
+        .header img { height: 50px; }
+        .main-content { padding: 30px; }
+        .container { max-width: 900px; margin: 20px auto; background-color: white; border: 1px solid #ddd; border-radius: 5px; }
+        .title-bar { background-color: var(--mu-dark-olive); color: white; padding: 12px; font-size: 18px; font-weight: bold; border-top-left-radius: 5px; border-top-right-radius: 5px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px 15px; text-align: right; border-bottom: 1px solid #ddd; }
+        thead th { background-color: #f7f7f7; font-weight: bold; }
         tbody tr:nth-child(even) { background-color: #f9f9f9; }
-        .back-link { display: block; text-align: center; margin: 30px auto; width: 200px; padding: 10px; background-color: var(--mu-primary); color: white; text-decoration: none; border-radius: 5px; }
+        .back-link { display: block; text-align: center; margin: 30px auto; width: 200px; padding: 10px; background-color: var(--mu-olive); color: white; text-decoration: none; border-radius: 5px; }
     </style>
 </head>
 <body>
     <div class="header"><img src="{{ url_for('static', filename='mu_logo.png') }}" alt="Majmaah University Logo"></div>
-    <h1>Attendance List</h1>
-    <table>
-        <thead><tr><th>Name</th><th>University ID</th><th>Time</th></tr></thead>
-        <tbody>
-            {% for attendee in attendees %}
-            <tr><td>{{ attendee.name }}</td><td>{{ attendee.student_id }}</td><td>{{ attendee.time }}</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <a href="/" class="back-link">Return to Dashboard</a>
+    <div class="main-content">
+        <div class="container">
+            <div class="title-bar">Attendance List</div>
+            <table>
+                <thead><tr><th>Name</th><th>University ID</th><th>Time</th></tr></thead>
+                <tbody>
+                    {% for attendee in attendees %}
+                    <tr><td>{{ attendee.name }}</td><td>{{ attendee.student_id }}</td><td>{{ attendee.time }}</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <a href="/" class="back-link">Return to Dashboard</a>
+    </div>
 </body>
 </html>
