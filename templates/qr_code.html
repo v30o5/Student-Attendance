@@ -2,12 +2,18 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>QR Code</title>
+    <title>باركود الحضور</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>باركود الحضور</h1>
-    <img src="{{ url_for('static', filename='attendance_qr.png') }}">
-    <br>
-    <a href="{{ url_for('teacher_dashboard') }}">عودة للوحة التحكم</a>
+    <div class="header"><img src="{{ url_for('static', filename='mu_logo.png') }}" alt="Majmaah University Logo"></div>
+    <div class="main-content">
+        <div class="container">
+            <div class="title-bar">امسح الباركود لتسجيل الحضور</div>
+            <img class="qr" src="{{ url_for('static', filename='attendance_qr.png') }}" alt="Attendance QR Code">
+            <br>
+            <a href="/" class="back-link">العودة إلى لوحة التحكم</a>
+        </div>
+    </div>
 </body>
 </html>
