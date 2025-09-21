@@ -10,49 +10,37 @@ from datetime import datetime
 
 # --- 1. الإعدادات المركزية (Config Class) ---
 class Config:
-    """
-    فئة تحتوي على كل إعدادات التطبيق في مكان واحد.
-    """
-    # مفتاح سري لتأمين الجلسات (ممارسة احترافية جيدة)
+    """فئة تحتوي على كل إعدادات التطبيق في مكان واحد."""
     SECRET_KEY = os.environ.get('SECRET_KEY', 'a-very-secret-key')
-
-    # إعدادات التطبيق الخاصة
     TIMEZONE = "Asia/Riyadh"
     REDIS_KEY_ATTENDEES = 'attendees'
-    
-    # مسارات المجلدات
     BASE_DIR = os.path.abspath(os.path.dirname(__file__))
     STATIC_FOLDER = os.path.join(BASE_DIR, 'static')
     TEMPLATE_FOLDER = os.path.join(BASE_DIR, 'templates')
     QR_CODE_FILENAME = os.path.join(STATIC_FOLDER, 'attendance_qr.png')
-
-    # إعدادات قاعدة البيانات
     REDIS_URL = os.environ.get('REDIS_URL')
 
-
 # --- 2. تهيئة التطبيق والإضافات ---
-
-# إنشاء تطبيق Flask وتحديد مجلدات القوالب والملفات الثابتة
 app = Flask(
     __name__,
     template_folder=Config.TEMPLATE_FOLDER,
     static_folder=Config.STATIC_FOLDER
 )
-# تحميل الإعدادات من الكلاس
 app.config.from_object(Config)
 
-# التحقق من وجود رابط قاعدة البيانات
 if not app.config['REDIS_URL']:
     raise RuntimeError("متغير REDIS_URL غير موجود. لا يمكن الاتصال بقاعدة البيانات.")
 
-# إنشاء اتصال مع قاعدة البيانات
 r = redis.from_url(app.config['REDIS_URL'], decode_responses=True)
-
 
 # --- 3. الصفحات والمنطق (Routes) ---
 
 @app.route('/')
 def teacher_dashboard():
+    """
+    الصفحة الرئيسية، وهي الآن لوحة تحكم المعلم.
+    """
+    # جلب عدد الحضور لعرضه في لوحة التحكم
     attendee_count = r.llen(app.config['REDIS_KEY_ATTENDEES'])
     return render_template('teacher_dashboard.html', attendee_count=attendee_count)
 
@@ -65,6 +53,10 @@ def generate_qr():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    """
+    صفحة تسجيل الحضور للطلاب.
+    """
+    # إذا قام الطالب بإرسال النموذج (POST)
     if request.method == 'POST':
         name = request.form.get('name')
         student_id = request.form.get('student_id')
@@ -75,9 +67,30 @@ def register():
         attendee_data = {'name': name, 'student_id': student_id, 'time': current_time}
         r.lpush(app.config['REDIS_KEY_ATTENDEES'], json.dumps(attendee_data))
         
+        # --- تم التصحيح هنا ---
+        # تم الإبقاء على رسالة النجاح الكاملة والمنسقة التي تفضلها
         return """
-            <!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><title>تم التسجيل</title><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet"><style>body{font-family:'Cairo',sans-serif;background-color:#f9f9f9;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;text-align:center}.message-card{padding:40px;background:#fff;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.06)}h1{color:#6b5f4c}</style></head><body><div class="message-card"><h1>تم تسجيل حضورك بنجاح ✅</h1></div></body></html>
+            <!DOCTYPE html>
+            <html lang="ar" dir="rtl">
+            <head>
+                <meta charset="UTF-8">
+                <title>تم التسجيل</title>
+                <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+                <style>
+                    body { font-family: 'Cairo', sans-serif; background-color: #f9f9f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; text-align: center; }
+                    .message-card { padding: 40px; background: #fff; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.06); }
+                    h1 { color: #6b5f4c; }
+                </style>
+            </head>
+            <body>
+                <div class="message-card">
+                    <h1>تم تسجيل حضورك بنجاح ✅</h1>
+                </div>
+            </body>
+            </html>
         """
+    
+    # إذا كانت الزيارة عادية (GET)، يتم عرض نموذج التسجيل
     return render_template('register.html')
 
 @app.route('/list')
@@ -91,9 +104,6 @@ def clear_list():
     r.delete(app.config['REDIS_KEY_ATTENDEES'])
     return redirect(url_for('teacher_dashboard'))
 
-
 # --- 4. نقطة تشغيل التطبيق ---
-
 if __name__ == '__main__':
-    # يعمل فقط عند تشغيل الملف مباشرة (للتجربة المحلية)
     app.run(debug=True)
