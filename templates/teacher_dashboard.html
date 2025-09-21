@@ -27,12 +27,10 @@
                     <i class="fas fa-qrcode"></i>
                     <span>إنشاء باركود جديد</span>
                 </a>
-                
                 <a href="{{ url_for('attendees_list') }}" class="control-button">
                     <i class="fas fa-users"></i>
                     <span>عرض قائمة الحضور</span>
                 </a>
-                
                 <form class="clear-form" action="{{ url_for('clear_list') }}" method="post" onsubmit="return confirm('تنبيه: سيتم حذف جميع سجلات الحضور. هل أنت متأكد؟');">
                     <button type="submit" class="control-button">
                         <i class="fas fa-trash-alt"></i>
