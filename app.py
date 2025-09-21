@@ -28,10 +28,7 @@ r = redis.from_url(redis_url, decode_responses=True)
 
 @app.route('/')
 def teacher_dashboard():
-    """
-    الصفحة الرئيسية، وهي الآن لوحة تحكم المعلم.
-    """
-    # جلب عدد الحضور من قاعدة البيانات لعرضه في لوحة التحكم
+    # جلب عدد الحضور لعرضه في لوحة التحكم
     attendee_count = r.llen(REDIS_KEY_ATTENDEES)
     return render_template('teacher_dashboard.html', attendee_count=attendee_count)
 
@@ -44,7 +41,7 @@ def generate_qr():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    # هذه الصفحة للطلاب ولا تستخدم القائمة الجانبية
+    # صفحة مستقلة للطلاب
     if request.method == 'POST':
         name = request.form.get('name')
         student_id = request.form.get('student_id')
@@ -53,11 +50,24 @@ def register():
         attendee_data = {'name': name, 'student_id': student_id, 'time': current_time}
         r.lpush(REDIS_KEY_ATTENDEES, json.dumps(attendee_data))
         return """
-            <style>
-                body { font-family: 'Cairo', sans-serif; background-color: #f8f9fa; display: flex; justify-content: center; align-items: center; height: 100vh; }
-                h1 { color: #6b5f4c; }
-            </style>
-            <h1>تم تسجيل حضورك بنجاح ✅</h1>
+            <!DOCTYPE html>
+            <html lang="ar" dir="rtl">
+            <head>
+                <meta charset="UTF-8">
+                <title>تم التسجيل</title>
+                <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+                <style>
+                    body { font-family: 'Cairo', sans-serif; background-color: #f9f9f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; text-align: center; }
+                    .message-card { padding: 40px; background: #fff; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.06); }
+                    h1 { color: #6b5f4c; }
+                </style>
+            </head>
+            <body>
+                <div class="message-card">
+                    <h1>تم تسجيل حضورك بنجاح ✅</h1>
+                </div>
+            </body>
+            </html>
         """
     return render_template('register.html')
 
