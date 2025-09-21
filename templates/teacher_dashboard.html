@@ -2,26 +2,43 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>لوحة تحكم المدرس</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; text-align: center; background-color: #f8f9fa; margin-top: 80px; }
-        .container { max-width: 500px; margin: auto; padding: 30px; background-color: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        h1 { color: #343a40; margin-bottom: 30px; }
-        .action-button { display: block; box-sizing: border-box; margin: 15px 0; padding: 18px; color: white; text-decoration: none; border: none; border-radius: 5px; font-size: 20px; cursor: pointer; width: 100%; }
-        .blue { background-color: #007bff; } .blue:hover { background-color: #0056b3; }
-        .green { background-color: #28a745; } .green:hover { background-color: #218838; }
-        .red { background-color: #dc3545; } .red:hover { background-color: #c82333; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - نظام الحضور</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>لوحة تحكم المدرس 👨‍🏫</h1>
-        <a href="/generate_qr" class="action-button blue">إنشاء باركود الحضور</a>
-        <a href="/list" class="action-button green">عرض قائمة الحضور</a>
-        
-        <form action="/clear" method="post" onsubmit="return confirm('هل أنت متأكد من رغبتك في حذف كل السجلات؟');" style="margin: 0;">
-            <button type="submit" class="action-button red">تصفير قائمة الحضور</button>
-        </form>
-    </div>
+    <header class="app-header">
+        <div class="header-logo">
+            <img src="{{ url_for('static', filename='mu_logo.png') }}" alt="شعار جامعة المجمعة">
+        </div>
+        <div class="header-title">
+            <h1>نظام تسجيل الحضور</h1>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="content-card">
+            <h2>لوحة التحكم</h2>
+            <p class="subtitle">اختر الإجراء المطلوب من القائمة أدناه.</p>
+            <div class="control-panel">
+                <a href="{{ url_for('generate_qr') }}" class="control-button">
+                    <i class="fas fa-qrcode"></i>
+                    <span>إنشاء باركود جديد</span>
+                </a>
+                <a href="{{ url_for('list') }}" class="control-button">
+                    <i class="fas fa-users"></i>
+                    <span>عرض قائمة الحضور</span>
+                </a>
+                <form class="clear-form" action="{{ url_for('clear') }}" method="post" onsubmit="return confirm('تنبيه: سيتم حذف جميع سجلات الحضور. هل أنت متأكد؟');">
+                    <button type="submit" class="control-button">
+                        <i class="fas fa-trash-alt"></i>
+                        <span>مسح جميع السجلات</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
