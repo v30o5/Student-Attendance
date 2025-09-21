@@ -11,22 +11,22 @@ body {
     text-align: center; 
 }
 
-/* الهيدر الكبير */
+/* الهيدر الكبير جدًا */
 .header { 
     background-color: #fff; 
-    padding: 40px 60px;        /* ارتفاع وعرض أكبر */
-    box-shadow: 0 6px 12px rgba(0,0,0,0.25); /* ظل أكبر */
-    border-bottom: 3px solid var(--mu-olive); 
+    padding: 80px 120px;        /* ارتفاع وعرض الهيدر ضخم */
+    box-shadow: 0 12px 24px rgba(0,0,0,0.3); /* ظل واضح وكبير */
+    border-bottom: 4px solid var(--mu-olive); 
     display: flex;
     justify-content: center;    /* شعار في الوسط */
     align-items: center;
 }
 
 .header img { 
-    height: 200px;              /* شعار كبير للكمبيوتر */
+    height: 400px;              /* شعار كبير جدًا للكمبيوتر */
     max-width: 90%;             /* لا يتجاوز عرض الهيدر */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.25); /* ظل للشعار */
-    border-radius: 15px;        /* زوايا مستديرة */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3); /* ظل للشعار */
+    border-radius: 20px;        /* زوايا مستديرة */
 }
 
 /* الحاوية */
@@ -136,10 +136,10 @@ img.qr {
 /* للجوال */
 @media (max-width: 600px) {
     .header {
-        padding: 25px 30px;    /* أصغر قليلاً على الجوال */
+        padding: 50px 60px;     /* أصغر قليلاً على الجوال */
     }
     .header img {
-        height: 130px;         /* شعار كبير نسبيًا للجوال */
+        height: 260px;          /* شعار كبير نسبيًا للجوال */
     }
     .title-bar { font-size: 16px; padding: 10px; }
     .container { padding: 15px; max-width: 95%; }
