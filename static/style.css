@@ -4,18 +4,18 @@
     --mu-bg: #EFEFEF; 
 }
 
-/* تنسيقات أساسية */
+/* 🔹 تنسيقات أساسية */
 body {
     margin: 0;
     font-family: "Tahoma", sans-serif;
-    background-color: #f9f9f9;
+    background-color: var(--mu-bg);
     direction: rtl;
     text-align: right;
 }
 
-/* الهيدر */
+/* 🔹 الهيدر */
 .header {
-    background-color: #8A814C; /* لون المجمعة */
+    background-color: var(--mu-olive);
     color: white;
     display: flex;
     align-items: center;
@@ -23,21 +23,21 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
-/* الشعار */
+/* 🔹 الشعار */
 .header img {
-    height: 200px;   /* 🔥 ضعف الحجم السابق */
+    height: 200px;   /* شعار كبير وواضح */
     margin-left: 25px;
 }
 
-/* النص بجانب الشعار */
+/* 🔹 النص بجانب الشعار */
 .header h1 {
     font-size: 42px;
     margin: 0;
 }
 
-/* الروابط */
+/* 🔹 شريط الروابط */
 .navbar {
-    background-color: #5A5340; /* غامق */
+    background-color: var(--mu-dark-olive);
     padding: 15px;
     text-align: center;
 }
@@ -54,24 +54,99 @@ body {
     text-decoration: underline;
 }
 
-/* المحتوى */
+/* 🔹 الحاوية */
 .container {
     padding: 40px;
     max-width: 1000px;
-    margin: auto;
+    margin: 30px auto;
     background: white;
     border-radius: 12px;
     box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    box-sizing: border-box;
 }
 
-/* للجوال */
+/* 🔹 الأزرار */
+button, .action-button {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    margin: 12px 0;
+    background-color: var(--mu-olive);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out;
+}
+
+button:hover, .action-button:hover {
+    background-color: var(--mu-dark-olive);
+}
+
+/* زر التحذير (مثلاً تصفير الحضور) */
+.action-button.clear {
+    background-color: #c9302c;
+    border: 1px solid #a00;
+}
+.action-button.clear:hover {
+    background-color: #a00;
+}
+
+/* 🔹 الفورم */
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #444;
+    text-align: right;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: right;
+    box-sizing: border-box;
+}
+
+/* 🔹 الباركود */
+img.qr {
+    display: block;
+    margin: 20px auto;
+    border: 4px solid #fff;
+    box-shadow: 0 0 12px rgba(0,0,0,0.15);
+    max-width: 100%;
+    height: auto;
+}
+
+/* 🔹 رابط العودة */
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--mu-olive);
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 18px;
+}
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* 🔹 للجوال */
 @media (max-width: 600px) {
     .header {
         flex-direction: column;
         text-align: center;
     }
     .header img {
-        height: 150px; /* على الجوال أصغر شوي */
+        height: 150px; /* أصغر شوي للجوال */
         margin: 0 0 15px 0;
     }
     .header h1 {
@@ -80,6 +155,14 @@ body {
     .navbar a {
         display: block;
         margin: 10px 0;
+    }
+    .container {
+        padding: 20px;
+        max-width: 95%;
+    }
+    button, .action-button {
+        font-size: 16px;
+        padding: 12px;
     }
 }
 
