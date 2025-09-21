@@ -4,147 +4,82 @@
     --mu-bg: #EFEFEF; 
 }
 
-body { 
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; 
-    background-color: var(--mu-bg); 
-    margin: 0; 
-    text-align: center; 
+/* تنسيقات أساسية */
+body {
+    margin: 0;
+    font-family: "Tahoma", sans-serif;
+    background-color: #f9f9f9;
+    direction: rtl;
+    text-align: right;
 }
 
-/* الهيدر الكبير جدًا */
-.header { 
-    background-color: #fff; 
-    padding: 80px 120px;        /* ارتفاع وعرض الهيدر ضخم */
-    box-shadow: 0 12px 24px rgba(0,0,0,0.3); /* ظل واضح وكبير */
-    border-bottom: 4px solid var(--mu-olive); 
+/* الهيدر */
+.header {
+    background-color: #8A814C; /* لون المجمعة */
+    color: white;
     display: flex;
-    justify-content: center;    /* شعار في الوسط */
     align-items: center;
+    padding: 25px 40px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
-.header img { 
-    height: 400px;              /* شعار كبير جدًا للكمبيوتر */
-    max-width: 90%;             /* لا يتجاوز عرض الهيدر */
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3); /* ظل للشعار */
-    border-radius: 20px;        /* زوايا مستديرة */
+/* الشعار */
+.header img {
+    height: 200px;   /* 🔥 ضعف الحجم السابق */
+    margin-left: 25px;
 }
 
-/* الحاوية */
-.main-content { 
-    padding: 15px; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-}
-.container { 
-    width: 100%; 
-    max-width: 500px; 
-    background-color: white; 
-    border: 1px solid #ddd; 
-    border-radius: 10px; 
-    overflow: hidden;
-    padding: 20px; 
-    box-sizing: border-box;
+/* النص بجانب الشعار */
+.header h1 {
+    font-size: 42px;
+    margin: 0;
 }
 
-/* العنوان */
-.title-bar { 
-    background-color: var(--mu-dark-olive); 
-    color: white; 
-    padding: 12px; 
-    font-size: 18px; 
-    font-weight: bold; 
-    margin: -20px -20px 20px -20px; 
-    border-radius: 10px 10px 0 0;
+/* الروابط */
+.navbar {
+    background-color: #5A5340; /* غامق */
+    padding: 15px;
+    text-align: center;
 }
 
-/* الأزرار */
-.action-button { 
-    display: flex; 
-    align-items: center; 
-    box-sizing: border-box; 
-    text-align: right; 
-    padding: 15px; 
-    margin-bottom: 15px; 
-    background-color: #f7f7f7; 
-    border: 1px solid #ddd; 
-    border-radius: 5px; 
-    text-decoration: none; 
-    color: #333; 
-    font-size: 16px; 
-    transition: background-color 0.2s; 
-}
-.action-button:hover { background-color: #e9e9e9; }
-.action-button.clear { 
-    background-color: #f1f1f1; 
-    color: #c9302c; 
-    text-align: center; 
-    border: 1px solid #c9302c; 
-}
-.action-button.clear:hover { background-color: #c9302c; color: white; }
-.icon { font-size: 24px; margin-left: 15px; }
-
-/* الفورم */
-label { 
-    display: block; 
-    text-align: right; 
-    margin-bottom: 8px; 
-    font-weight: bold; 
-    color: #555; 
-}
-input { 
-    width: 100%; 
-    padding: 12px; 
-    margin-bottom: 20px; 
-    border: 1px solid #ccc; 
-    border-radius: 4px; 
-    box-sizing: border-box; 
-    text-align: right; 
-    font-size: 16px; 
-}
-button { 
-    width: 100%; 
-    padding: 12px; 
-    border: none; 
-    background-color: var(--mu-olive); 
-    color: white; 
-    font-size: 16px; 
-    border-radius: 4px; 
-    cursor: pointer; 
-    font-weight: bold; 
-}
-button:hover { background-color: var(--mu-dark-olive); }
-
-/* الباركود */
-img.qr { 
-    border: 4px solid #fff; 
-    box-shadow: 0 0 10px rgba(0,0,0,0.1); 
-    max-width: 100%;
-    height: auto;
-    margin: 0 auto;
-}
-.back-link { 
-    display: inline-block; 
-    margin-top: 25px; 
-    color: var(--mu-olive); 
-    font-weight: bold; 
+.navbar a {
+    color: white;
     text-decoration: none;
-    font-size: 16px;
+    margin: 0 20px;
+    font-size: 20px;
+    font-weight: bold;
 }
-.back-link:hover { text-decoration: underline; }
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+/* المحتوى */
+.container {
+    padding: 40px;
+    max-width: 1000px;
+    margin: auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
 
 /* للجوال */
 @media (max-width: 600px) {
     .header {
-        padding: 50px 60px;     /* أصغر قليلاً على الجوال */
+        flex-direction: column;
+        text-align: center;
     }
     .header img {
-        height: 260px;          /* شعار كبير نسبيًا للجوال */
+        height: 150px; /* على الجوال أصغر شوي */
+        margin: 0 0 15px 0;
     }
-    .title-bar { font-size: 16px; padding: 10px; }
-    .container { padding: 15px; max-width: 95%; }
-    .action-button { font-size: 14px; padding: 12px; }
-    .icon { font-size: 20px; }
-    button { font-size: 14px; padding: 10px; }
-    .back-link { font-size: 14px; }
+    .header h1 {
+        font-size: 30px;
+    }
+    .navbar a {
+        display: block;
+        margin: 10px 0;
+    }
 }
+
