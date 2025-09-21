@@ -14,131 +14,18 @@ body {
 /* الهيدر */
 .header { 
     background-color: #fff; 
-    padding: 10px 20px; 
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1); 
+    padding: 20px 40px;      /* ارتفاع الهيدر أعلى وأوسع */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15); /* ظل خفيف للهيدر */
     border-bottom: 2px solid var(--mu-olive); 
     display: flex;
-    justify-content: center;   /* شعار في الوسط */
+    justify-content: center;  /* شعار في الوسط */
     align-items: center;
 }
+
 .header img { 
-    height: 80px;        /* حجم الشعار على الكمبيوتر */
-    max-width: 90%;      /* لا يتجاوز عرض الهيدر */
+    height: 100px;            /* حجم الشعار على الكمبيوتر */
+    max-width: 90%;           /* لا يتجاوز عرض الهيدر */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* ظل خفيف للشعار */
+    border-radius: 10px;      /* زوايا شعار مستديرة قليلاً */
 }
 
-/* الحاوية */
-.main-content { 
-    padding: 15px; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-}
-.container { 
-    width: 100%; 
-    max-width: 500px; 
-    background-color: white; 
-    border: 1px solid #ddd; 
-    border-radius: 10px; 
-    overflow: hidden;
-    padding: 20px; 
-    box-sizing: border-box;
-}
-
-/* العنوان */
-.title-bar { 
-    background-color: var(--mu-dark-olive); 
-    color: white; 
-    padding: 12px; 
-    font-size: 18px; 
-    font-weight: bold; 
-    margin: -20px -20px 20px -20px; 
-    border-radius: 10px 10px 0 0;
-}
-
-/* الأزرار */
-.action-button { 
-    display: flex; 
-    align-items: center; 
-    box-sizing: border-box; 
-    text-align: right; 
-    padding: 15px; 
-    margin-bottom: 15px; 
-    background-color: #f7f7f7; 
-    border: 1px solid #ddd; 
-    border-radius: 5px; 
-    text-decoration: none; 
-    color: #333; 
-    font-size: 16px; 
-    transition: background-color 0.2s; 
-}
-.action-button:hover { background-color: #e9e9e9; }
-.action-button.clear { 
-    background-color: #f1f1f1; 
-    color: #c9302c; 
-    text-align: center; 
-    border: 1px solid #c9302c; 
-}
-.action-button.clear:hover { background-color: #c9302c; color: white; }
-.icon { font-size: 24px; margin-left: 15px; }
-
-/* الفورم */
-label { 
-    display: block; 
-    text-align: right; 
-    margin-bottom: 8px; 
-    font-weight: bold; 
-    color: #555; 
-}
-input { 
-    width: 100%; 
-    padding: 12px; 
-    margin-bottom: 20px; 
-    border: 1px solid #ccc; 
-    border-radius: 4px; 
-    box-sizing: border-box; 
-    text-align: right; 
-    font-size: 16px; 
-}
-button { 
-    width: 100%; 
-    padding: 12px; 
-    border: none; 
-    background-color: var(--mu-olive); 
-    color: white; 
-    font-size: 16px; 
-    border-radius: 4px; 
-    cursor: pointer; 
-    font-weight: bold; 
-}
-button:hover { background-color: var(--mu-dark-olive); }
-
-/* الباركود */
-img.qr { 
-    border: 4px solid #fff; 
-    box-shadow: 0 0 10px rgba(0,0,0,0.1); 
-    max-width: 100%;
-    height: auto;
-    margin: 0 auto;
-}
-.back-link { 
-    display: inline-block; 
-    margin-top: 25px; 
-    color: var(--mu-olive); 
-    font-weight: bold; 
-    text-decoration: none;
-    font-size: 16px;
-}
-.back-link:hover { text-decoration: underline; }
-
-/* للجوال */
-@media (max-width: 600px) {
-    .header img {
-        height: 60px;   /* حجم الشعار أصغر للجوال */
-    }
-    .title-bar { font-size: 16px; padding: 10px; }
-    .container { padding: 15px; max-width: 95%; }
-    .action-button { font-size: 14px; padding: 12px; }
-    .icon { font-size: 20px; }
-    button { font-size: 14px; padding: 10px; }
-    .back-link { font-size: 14px; }
-}
