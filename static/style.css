@@ -1,19 +1,18 @@
-:root { 
-    --mu-olive: #8A814C; 
-    --mu-dark-olive: #5A5340; 
-    --mu-bg: #EFEFEF; 
+
+:root {
+    --mu-olive: #8A814C;
+    --mu-dark-olive: #5A5340;
+    --mu-bg: #EFEFEF;
 }
 
-/* 🔹 تنسيقات أساسية */
 body {
     margin: 0;
     font-family: "Tahoma", sans-serif;
-    background-color: var(--mu-bg);
+    background-color: #f9f9f9;
     direction: rtl;
     text-align: right;
 }
 
-/* 🔹 الهيدر */
 .header {
     background-color: var(--mu-olive);
     color: white;
@@ -23,19 +22,16 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
-/* 🔹 الشعار */
 .header img {
-    height: 200px;   /* شعار كبير وواضح */
+    height: 200px;
     margin-left: 25px;
 }
 
-/* 🔹 النص بجانب الشعار */
 .header h1 {
     font-size: 42px;
     margin: 0;
 }
 
-/* 🔹 شريط الروابط */
 .navbar {
     background-color: var(--mu-dark-olive);
     padding: 15px;
@@ -54,99 +50,58 @@ body {
     text-decoration: underline;
 }
 
-/* 🔹 الحاوية */
 .container {
     padding: 40px;
     max-width: 1000px;
-    margin: 30px auto;
+    margin: auto;
     background: white;
     border-radius: 12px;
     box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-    box-sizing: border-box;
 }
 
-/* 🔹 الأزرار */
-button, .action-button {
+form label {
     display: block;
+    margin: 15px 0 5px 0;
+    font-weight: bold;
+}
+
+form input {
     width: 100%;
-    padding: 14px;
-    margin: 12px 0;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+form button {
+    margin-top: 20px;
+    padding: 12px 25px;
     background-color: var(--mu-olive);
     color: white;
-    font-size: 18px;
-    font-weight: bold;
     border: none;
     border-radius: 6px;
+    font-size: 18px;
     cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    transition: background-color 0.2s ease-in-out;
 }
 
-button:hover, .action-button:hover {
+form button:hover {
     background-color: var(--mu-dark-olive);
 }
 
-/* زر التحذير (مثلاً تصفير الحضور) */
-.action-button.clear {
-    background-color: #c9302c;
-    border: 1px solid #a00;
-}
-.action-button.clear:hover {
-    background-color: #a00;
-}
-
-/* 🔹 الفورم */
-label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: bold;
-    color: #444;
-    text-align: right;
-}
-
-input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 18px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    text-align: right;
-    box-sizing: border-box;
-}
-
-/* 🔹 الباركود */
-img.qr {
-    display: block;
-    margin: 20px auto;
-    border: 4px solid #fff;
-    box-shadow: 0 0 12px rgba(0,0,0,0.15);
-    max-width: 100%;
-    height: auto;
-}
-
-/* 🔹 رابط العودة */
-.back-link {
-    display: inline-block;
+.success-msg {
     margin-top: 20px;
-    color: var(--mu-olive);
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 18px;
-}
-.back-link:hover {
-    text-decoration: underline;
+    padding: 15px;
+    background-color: #d4edda;
+    color: #155724;
+    border-radius: 8px;
 }
 
-/* 🔹 للجوال */
 @media (max-width: 600px) {
     .header {
         flex-direction: column;
         text-align: center;
     }
     .header img {
-        height: 150px; /* أصغر شوي للجوال */
+        height: 150px;
         margin: 0 0 15px 0;
     }
     .header h1 {
@@ -155,14 +110,6 @@ img.qr {
     .navbar a {
         display: block;
         margin: 10px 0;
-    }
-    .container {
-        padding: 20px;
-        max-width: 95%;
-    }
-    button, .action-button {
-        font-size: 16px;
-        padding: 12px;
     }
 }
 
