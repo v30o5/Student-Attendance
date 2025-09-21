@@ -28,21 +28,23 @@ r = redis.from_url(redis_url, decode_responses=True)
 
 @app.route('/')
 def teacher_dashboard():
-    # يستخدم الاسم الصحيح للقالب
-    return render_template('teacher_dashboard.html')
-
+    """
+    الصفحة الرئيسية، وهي الآن لوحة تحكم المعلم.
+    """
+    # جلب عدد الحضور من قاعدة البيانات لعرضه في لوحة التحكم
+    attendee_count = r.llen(REDIS_KEY_ATTENDEES)
+    return render_template('teacher_dashboard.html', attendee_count=attendee_count)
 
 @app.route('/generate_qr')
 def generate_qr():
     registration_url = url_for('register', _external=True)
     qr_img = qrcode.make(registration_url)
     qr_img.save(QR_CODE_FILENAME)
-    # يستخدم الاسم الصحيح للقالب
     return render_template('qr_code.html')
-
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    # هذه الصفحة للطلاب ولا تستخدم القائمة الجانبية
     if request.method == 'POST':
         name = request.form.get('name')
         student_id = request.form.get('student_id')
@@ -50,16 +52,20 @@ def register():
         current_time = datetime.now(riyadh_tz).strftime('%Y-%m-%d %H:%M:%S')
         attendee_data = {'name': name, 'student_id': student_id, 'time': current_time}
         r.lpush(REDIS_KEY_ATTENDEES, json.dumps(attendee_data))
-        return "<h1>تم تسجيل حضورك بنجاح ✅</h1>"
+        return """
+            <style>
+                body { font-family: 'Cairo', sans-serif; background-color: #f8f9fa; display: flex; justify-content: center; align-items: center; height: 100vh; }
+                h1 { color: #6b5f4c; }
+            </style>
+            <h1>تم تسجيل حضورك بنجاح ✅</h1>
+        """
     return render_template('register.html')
-
 
 @app.route('/list')
 def attendees_list():
     raw_data = r.lrange(REDIS_KEY_ATTENDEES, 0, -1)
     attendees_data = [json.loads(item) for item in raw_data]
     return render_template('list.html', attendees=attendees_data)
-
 
 @app.route('/clear', methods=['POST'])
 def clear_list():
