@@ -1,115 +1,150 @@
-
-:root {
-    --mu-olive: #8A814C;
-    --mu-dark-olive: #5A5340;
-    --mu-bg: #EFEFEF;
+:root { 
+    --mu-olive: #8A814C;       /* اللون الأساسي */
+    --mu-dark-olive: #5A5340;  /* اللون الغامق */
+    --mu-bg: #f5f5f5;          /* خلفية ناعمة */
 }
 
+/* عام */
 body {
     margin: 0;
-    font-family: "Tahoma", sans-serif;
-    background-color: #f9f9f9;
+    font-family: "Cairo", "Tahoma", sans-serif;
+    background-color: var(--mu-bg);
     direction: rtl;
     text-align: right;
 }
 
+/* الهيدر */
 .header {
-    background-color: var(--mu-olive);
+    background: linear-gradient(to left, var(--mu-olive), var(--mu-dark-olive));
     color: white;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 25px 40px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
-.header img {
-    height: 200px;
-    margin-left: 25px;
+    padding: 25px 50px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-bottom: 6px solid #ddd;
 }
 
 .header h1 {
-    font-size: 42px;
+    font-size: 40px;
     margin: 0;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
+/* الشعار */
+.header img {
+    height: 90px;
+    object-fit: contain;
+    background: transparent;   /* 🔥 يضمن إن الصورة مدموجة */
+    border-radius: 0;          /* 🔥 يلغي أي حواف */
+}
+
+/* القائمة */
 .navbar {
     background-color: var(--mu-dark-olive);
-    padding: 15px;
+    padding: 14px 0;
     text-align: center;
 }
 
 .navbar a {
     color: white;
     text-decoration: none;
-    margin: 0 20px;
-    font-size: 20px;
-    font-weight: bold;
+    margin: 0 25px;
+    font-size: 19px;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
 .navbar a:hover {
+    color: #ffe;
     text-decoration: underline;
 }
 
+/* المحتوى */
 .container {
     padding: 40px;
     max-width: 1000px;
-    margin: auto;
+    margin: 35px auto;
     background: white;
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
 }
 
-form label {
-    display: block;
-    margin: 15px 0 5px 0;
-    font-weight: bold;
+/* العناوين */
+h2 {
+    color: var(--mu-dark-olive);
+    margin-bottom: 20px;
+    font-size: 28px;
 }
 
-form input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-}
-
-form button {
-    margin-top: 20px;
-    padding: 12px 25px;
-    background-color: var(--mu-olive);
+/* الأزرار */
+button {
+    background: var(--mu-olive);
     color: white;
     border: none;
-    border-radius: 6px;
-    font-size: 18px;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: bold;
     cursor: pointer;
+    transition: 0.3s;
+    margin: 5px;
 }
 
-form button:hover {
-    background-color: var(--mu-dark-olive);
+button:hover {
+    background: var(--mu-dark-olive);
+    transform: scale(1.05);
 }
 
-.success-msg {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #d4edda;
-    color: #155724;
-    border-radius: 8px;
+/* النموذج */
+input[type="text"] {
+    width: 95%;
+    padding: 12px;
+    margin: 10px 0 20px 0;
+    border: 1px solid #bbb;
+    border-radius: 10px;
+    font-size: 16px;
 }
 
-@media (max-width: 600px) {
+/* الجدول */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 16px;
+}
+
+th, td {
+    padding: 14px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: var(--mu-olive);
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+/* للجوال */
+@media (max-width: 700px) {
     .header {
         flex-direction: column;
         text-align: center;
     }
     .header img {
-        height: 150px;
-        margin: 0 0 15px 0;
+        height: 70px;
+        margin-top: 15px;
     }
     .header h1 {
-        font-size: 30px;
+        font-size: 28px;
     }
     .navbar a {
         display: block;
-        margin: 10px 0;
+        margin: 12px 0;
     }
 }
-
