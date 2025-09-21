@@ -2,18 +2,68 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>باركود الحضور</title>
+    <title>باركود الحضور - جامعة المجمعة</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            text-align: center;
+            background-color: var(--mu-bg);
+        }
+        .header {
+            background-color: var(--mu-olive);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .header img {
+            height: 200px; /* شعار كبير وواضح */
+            margin-left: 20px;
+        }
+        .header h1 {
+            font-size: 42px;
+            margin: 0;
+        }
+        .container {
+            padding: 40px;
+            margin: 30px auto;
+            background: white;
+            border-radius: 12px;
+            max-width: 500px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+        img.qr {
+            width: 300px;
+            height: 300px;
+            margin: 20px 0;
+        }
+        a.back {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: var(--mu-dark-olive);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        a.back:hover {
+            background-color: #423a2b;
+        }
+    </style>
 </head>
 <body>
-    <div class="header"><img src="{{ url_for('static', filename='mu_logo.png') }}" alt="Majmaah University Logo"></div>
-    <div class="main-content">
-        <div class="container">
-            <div class="title-bar">امسح الباركود لتسجيل الحضور</div>
-            <img class="qr" src="{{ url_for('static', filename='attendance_qr.png') }}" alt="Attendance QR Code">
-            <br>
-            <a href="/" class="back-link">العودة إلى لوحة التحكم</a>
-        </div>
+    <div class="header">
+        <img src="{{ url_for('static', filename='mu_logo.png') }}" alt="جامعة المجمعة">
+        <h1>باركود الحضور</h1>
+    </div>
+
+    <div class="container">
+        <img class="qr" src="{{ url_for('static', filename='attendance_qr.png') }}" alt="QR Code">
+        <br>
+        <a class="back" href="{{ url_for('teacher_dashboard') }}">عودة للوحة التحكم</a>
     </div>
 </body>
 </html>
