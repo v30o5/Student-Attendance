@@ -21,39 +21,23 @@
     <main class="main-container">
         <div class="content-card">
             <h2>لوحة التحكم</h2>
-            <p class="subtitle">اختر الإجراء المطلوب من القائمة المنظمة أدناه.</p>
-            
-            <ul class="action-list">
-                <li>
-                    <a href="{{ url_for('generate_qr') }}">
-                        <i class="fas fa-qrcode"></i>
-                        <div class="action-text">
-                            <strong>إنشاء باركود جديد</strong>
-                            <span>بدء جلسة حضور جديدة وعرض الباركود للطلاب.</span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ url_for('attendees_list') }}">
-                        <i class="fas fa-users"></i>
-                        <div class="action-text">
-                            <strong>عرض قائمة الحضور</strong>
-                            <span>مراجعة سجلات الطلاب الذين قاموا بتسجيل حضورهم.</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="danger">
-                    <form action="{{ url_for('clear_list') }}" method="post" onsubmit="return confirm('تنبيه: سيتم حذف جميع سجلات الحضور. هل أنت متأكد؟');">
-                        <button type="submit">
-                            <i class="fas fa-trash-alt"></i>
-                            <div class="action-text">
-                                <strong>مسح جميع السجلات</strong>
-                                <span>حذف كافة بيانات الحضور الحالية للبدء من جديد.</span>
-                            </div>
-                        </button>
-                    </form>
-                </li>
-            </ul>
+            <p class="subtitle">اختر الإجراء المطلوب من القائمة أدناه.</p>
+            <div class="control-panel">
+                <a href="{{ url_for('generate_qr') }}" class="control-button">
+                    <i class="fas fa-qrcode"></i>
+                    <span>إنشاء باركود جديد</span>
+                </a>
+                <a href="{{ url_for('attendees_list') }}" class="control-button">
+                    <i class="fas fa-users"></i>
+                    <span>عرض قائمة الحضور</span>
+                </a>
+                <form class="clear-form" action="{{ url_for('clear_list') }}" method="post" onsubmit="return confirm('تنبيه: سيتم حذف جميع سجلات الحضور. هل أنت متأكد؟');">
+                    <button type="submit" class="control-button">
+                        <i class="fas fa-trash-alt"></i>
+                        <span>مسح جميع السجلات</span>
+                    </button>
+                </form>
+            </div>
         </div>
     </main>
 </body>
