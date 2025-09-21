@@ -18,7 +18,7 @@ static_dir = os.path.abspath('./static')
 app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 
 # --- ثوابت التطبيق ---
-TIMEZONE = "Asia/Riyadh"              # المنطقة الزمنية لتسجيل الحضور
+TIMEZONE = "Asia/Radh"              # المنطقة الزمنية لتسجيل الحضور
 REDIS_KEY_ATTENDEES = 'attendees'     # اسم المفتاح في قاعدة بيانات Redis لتخزين الحضور
 QR_CODE_FILENAME = 'static/attendance_qr.png' # مسار واسم ملف صورة الـ QR Code
 
@@ -27,7 +27,7 @@ redis_url = os.getenv('REDIS_URL')
 if not redis_url:
     raise RuntimeError("متغير REDIS_URL غير موجود. لا يمكن الاتصال بقاعدة البيانات.")
 
-# إنشاء اتصال مع قاعدة البيانات
+# إنشاء اتصال مع قاعدة البيانات (تم حذف السطر المكرر)
 r = redis.from_url(redis_url, decode_responses=True)
 
 # ------------------------------------
@@ -39,8 +39,7 @@ def teacher_dashboard():
     """
     الصفحة الرئيسية، وهي الآن لوحة تحكم المعلم.
     """
-    # -- تم التصحيح هنا --
-    # تم تغيير اسم القالب ليتوافق مع اسم ملفك
+    # تم حذف سطر return الخاطئ والإبقاء على الصحيح فقط
     return render_template('teacher_dashboard.html')
 
 
