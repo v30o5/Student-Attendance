@@ -22,7 +22,7 @@ r = redis.from_url(redis_url)
 # --- الصفحة الرئيسية (لوحة التحكم للمعلم) ---
 @app.route('/')
 def dashboard():
-    return render_template('dashboard.html')
+    return render_template('teacher_dashboard.html')
 
 # --- توليد باركود ---
 @app.route('/generate_qr')
