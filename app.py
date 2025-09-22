@@ -1,41 +1,71 @@
-import os
-import redis
-import json
-from flask import Flask, render_template, request, url_for, redirect
-from datetime import datetime
+from flask import Flask, render_template, request, redirect, url_for
+import pandas as pd
 import qrcode
-import pytz
+from datetime import datetime
+import os
+import matplotlib.pyplot as plt
 
-# تحديد المسارات
-template_dir = os.path.abspath('./templates')
-static_dir = os.path.abspath('./static')
+app = Flask(__name__)
 
-# تعريف التطبيق
-app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
+DATA_FILE = 'data/attendance.csv'
 
-# --- اتصال Redis ---
-redis_url = os.getenv('REDIS_URL')
-if not redis_url:
-    redis_url = "redis://localhost:6379/0"  # تشغيل محلي إذا ما فيه متغير بيئة
-r = redis.from_url(redis_url)
+# تأكد من وجود ملف البيانات
+if not os.path.exists(DATA_FILE):
+    df = pd.DataFrame(columns=['name', 'student_id', 'date', 'time'])
+    df.to_csv(DATA_FILE, index=False)
 
-# --- الصفحة الرئيسية (لوحة التحكم للمعلم) ---
+# إنشاء QR Code تلقائياً
+def generate_qr():
+    qr_data = "https://your-university-attendance-link.com"
+    qr_img = qrcode.make(qr_data)
+    qr_img.save('static/attendance_qr.png')
+
+generate_qr()
+
+# الصفحة الرئيسية - لوحة التحكم
 @app.route('/')
 def dashboard():
-    return render_template('teacher_dashboard.html')
+    df = pd.read_csv(DATA_FILE)
+    total_students = df['student_id'].nunique()
+    today = datetime.today().strftime('%Y-%m-%d')
+    attendance_today = df[df['date'] == today].shape[0]
+    recent_attendance = df.sort_values(by='date', ascending=False).head(5).to_dict(orient='records')
+    
+    # رسم بياني للحضور الشهري
+    df['date_only'] = pd.to_datetime(df['date'])
+    monthly_counts = df.groupby(df['date_only'].dt.to_period('M')).size()
+    monthly_counts.plot(kind='bar', color='#004080')
+    plt.title('عدد الحضور الشهري')
+    plt.tight_layout()
+    plt.savefig('static/monthly_attendance.png')
+    plt.close()
+    
+    return render_template('dashboard.html', total_students=total_students,
+                           attendance_today=attendance_today,
+                           recent_attendance=recent_attendance)
 
-# --- توليد باركود ---
-@app.route('/generate_qr')
-def generate_qr():
-    # رابط تسجيل الحضور
-    registration_url = url_for('register', _external=True)
+# صفحة تسجيل الطلاب
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        name = request.form['name']
+        student_id = request.form['student_id']
+        date_now = datetime.today().strftime('%Y-%m-%d')
+        time_now = datetime.today().strftime('%H:%M:%S')
+        df = pd.read_csv(DATA_FILE)
+        df = pd.concat([df, pd.DataFrame([{'name': name, 'student_id': student_id, 'date': date_now, 'time': time_now}])], ignore_index=True)
+        df.to_csv(DATA_FILE, index=False)
+        return redirect(url_for('dashboard'))
+    return render_template('register.html')
 
-    # إنشاء باركود
-    qr_img = qrcode.make(registration_url)
-    qr_path = os.path.join(static_dir, 'attendance_qr.png')
-    qr_img.save(qr_path)
-
+# صفحة عرض QR Code
+@app.route('/qr')
+def qr():
     return render_template('qr.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
 
 # --- تسجيل حضور الطلاب ---
 @app.route('/register', methods=['GET', 'POST'])
