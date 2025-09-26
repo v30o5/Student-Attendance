@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - نظام الحضور</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-logo">
+            <img src="{{ url_for('static', filename='mu_logo.png') }}" alt="شعار جامعة المجمعة">
+        </div>
+        <div class="header-title">
+            <h1>نظام تسجيل الحضور</h1>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="content-card">
+            <h2>لوحة التحكم</h2>
+            <p class="subtitle">اختر الإجراء المطلوب من القائمة أدناه.</p>
+            <div class="control-panel">
+                <a href="{{ url_for('generate_qr') }}" class="control-button">
+                    <i class="fas fa-qrcode"></i>
+                    <span>إنشاء باركود جديد</span>
+                </a>
+                <a href="{{ url_for('attendees_list') }}" class="control-button">
+                    <i class="fas fa-users"></i>
+                    <span>عرض قائمة الحضور</span>
+                </a>
+                <form class="clear-form" action="{{ url_for('clear_list') }}" method="post" onsubmit="return confirm('تنبيه: سيتم حذف جميع سجلات الحضور. هل أنت متأكد؟');">
+                    <button type="submit" class="control-button">
+                        <i class="fas fa-trash-alt"></i>
+                        <span>مسح جميع السجلات</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

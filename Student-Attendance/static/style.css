@@ -1,0 +1,154 @@
+:root { 
+    --mu-olive: #8A814C; 
+    --mu-dark-olive: #5A5340; 
+    --mu-bg: #EFEFEF; 
+}
+
+/* أساسي */
+body {
+    margin: 0;
+    font-family: "Tahoma", sans-serif;
+    background-color: var(--mu-bg);
+    direction: rtl;
+    text-align: right;
+}
+
+/* الهيدر */
+.header {
+    background-color: var(--mu-olive);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.header h1 {
+    font-size: 32px;
+    margin: 0;
+}
+
+.header .logo {
+    height: 120px;
+}
+
+/* شريط الروابط */
+.navbar {
+    background-color: var(--mu-dark-olive);
+    padding: 12px;
+    text-align: center;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+/* محتوى */
+.container {
+    padding: 40px;
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.qr-wrapper {
+    margin-top: 25px;
+}
+
+.qr-code {
+    width: 300px;
+    height: 300px;
+}
+
+form label {
+    display: block;
+    margin: 12px 0 5px;
+}
+
+form input {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+form button {
+    padding: 12px 25px;
+    background-color: var(--mu-dark-olive);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: var(--mu-olive);
+}
+
+.attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.attendance-table th, .attendance-table td {
+    border: 1px solid #ccc;
+    padding: 12px;
+}
+
+.attendance-table th {
+    background-color: var(--mu-dark-olive);
+    color: white;
+}
+
+.clear-btn {
+    padding: 10px 20px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.clear-btn:hover {
+    background-color: darkred;
+}
+
+/* جوال */
+@media (max-width: 600px) {
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
+    .header .logo {
+        height: 100px;
+        margin-top: 10px;
+    }
+    .header h1 {
+        font-size: 24px;
+    }
+    .navbar a {
+        display: block;
+        margin: 8px 0;
+    }
+    .qr-code {
+        width: 250px;
+        height: 250px;
+    }
+    form input {
+        width: 100%;
+    }
+}

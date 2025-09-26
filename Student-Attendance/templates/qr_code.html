@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>باركود الحضور - جامعة المجمعة</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- الهيدر -->
+    <div class="header">
+        <img src="{{ url_for('static', filename='mu_logo.png') }}" alt="جامعة المجمعة">
+        <h1>باركود الحضور</h1>
+    </div>
+
+    <!-- شريط الروابط -->
+    <div class="navbar">
+        <a href="{{ url_for('teacher_dashboard') }}">لوحة التحكم</a>
+        <a href="{{ url_for('generate_qr') }}">تحديث الباركود</a>
+        <a href="{{ url_for('attendees_list') }}">قائمة الحضور</a>
+    </div>
+
+    <!-- محتوى الصفحة -->
+    <div class="container">
+        <img src="{{ url_for('static', filename='attendance_qr.png') }}" alt="QR Code" style="width:300px; height:300px;">
+    </div>
+</body>
+</html>
